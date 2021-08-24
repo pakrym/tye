@@ -17,7 +17,7 @@ namespace Microsoft.Tye
 {
     public static class ApplicationFactory
     {
-        public static async Task<ApplicationBuilder> CreateAsync(OutputContext output, FileInfo source, string? framework = null, ApplicationFactoryFilter? filter = null)
+        public static async Task<ApplicationBuilder> CreateAsync(OutputContext output, FileInfo source, ConfigApplication rootConfig, string? framework = null, ApplicationFactoryFilter? filter = null)
         {
             if (source is null)
             {
@@ -27,7 +27,6 @@ namespace Microsoft.Tye
             var queue = new Queue<(ConfigApplication, HashSet<string>)>();
             var visited = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
-            var rootConfig = ConfigFactory.FromFile(source);
             rootConfig.Validate();
 
             var root = new ApplicationBuilder(source, rootConfig.Name!, new ContainerEngine(rootConfig.ContainerEngineType))

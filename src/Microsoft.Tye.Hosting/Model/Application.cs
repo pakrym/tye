@@ -131,6 +131,7 @@ namespace Microsoft.Tye.Hosting.Model
 
                 set($"SERVICE__{configName}__HOST", binding.Host);
                 set($"{envName}_SERVICE_HOST", binding.Host);
+                set($"{configName}__BASEURL", $"{binding.Protocol}://{binding.Host}:{binding.Port}");
             }
         }
 
